@@ -8,15 +8,6 @@ app.get('/', (req, res) => {
   res.send('API is running');
 });
 
-
-
-app.post('/estimate', (req, res) => {
-  res.json({
-    message: 'Valuation loaded successfully',
-    config: valuationConfig
-  });
-});
-
 app.post('/estimate', (req, res) => {
     try {
         const { neighborhood, surface, type, condition, floor } = req.body;
