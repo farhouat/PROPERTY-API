@@ -1,9 +1,51 @@
 {
   "neighborhoods": {
+    
+    "Anfa": 23000,
+    "Racine": 22000,
+    "Gauthier": 21000,
+    "Bourgogne": 18000,
+    "Maarif": 17000,
+    "Maarif Extension": 16500,
+    "Oasis": 16000,
+    "Californie": 15000,
+    "Les Princesses": 14500,
+    "Ferme Bretonne": 14000,
+    "CIL": 14000,
+    "Beausejour": 13000,
+    "Sidi Maarouf": 12500,
+    "Ain Diab": 24000,
+    "Ain Chock": 11000,
+    "Ain Sebaa": 10500,
+    "Derb Omar": 12000,
+    "Mers Sultan": 11500,
+    "Belvedere": 13000,
     "Al Wifaq": 12000,
     "Al Manar": 11000,
     "Al Falah": 10000,
-    "Oulfa": 9000
+    "Oulfa": 9000,
+    "Hay Hassani": 9500,
+    "Hay Mohammadi": 8500,
+    "Sidi Bernoussi": 8000,
+    "Sbata": 8500,
+    "Ben Msik": 8000,
+    "Derb Sultan": 10000,
+    "Roches Noires": 11500,
+    "Palmier": 18000,
+    "Longchamps": 17500,
+    "Val Fleuri": 16000,
+    "Les Cretes": 15500,
+    "Mandarouna": 13000,
+    "Nassim": 9000,
+    "Errahma": 8500,
+    "Lissasfa": 8000,
+    "Sidi Othmane": 8500,
+    "Hay El Hana": 9500,
+    "Hay Al Inara": 9000,
+    "Hay Al Matar": 10000,
+    "Technopark": 14000
+
+    
   },
 
   "propertyTypes": {
