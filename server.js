@@ -1,11 +1,38 @@
-function normalizeNeighborhood(input, neighborhoods) {
-    const Fuse = require("fuse.js");
+const express = require('express');
+const Fuse = require('fuse.js');
+const app = express();
+const valuationConfig = require('./config/valuation.json');
 
+app.use(express.json());
+
+console.log("Loaded config:", valuationConfig);
+
+// -------------------------------
+// Arabic → French neighborhood map
+// -------------------------------
+const arabicMap = {
+    "الوفاق": "Al Wifaq",
+    "المنار": "Al Manar",
+    "الفلاح": "Al Falah",
+    "اولفا": "Oulfa",
+    "المعاريف": "Maarif",
+    "المعاريف إكستنشن": "Maarif Extension",
+    "كاليفورنيا": "Californie",
+    "عين الذياب": "Ain Diab",
+    "عين السبع": "Ain Sebaa",
+    "سيدي معروف": "Sidi Maarouf",
+    "مرس السلطان": "Mers Sultan"
+};
+
+// -------------------------------
+// Fuzzy matching helper
+// -------------------------------
+function normalizeNeighborhood(input, neighborhoods) {
     const list = Object.keys(neighborhoods).map(n => ({ name: n }));
 
     const fuse = new Fuse(list, {
         keys: ["name"],
-        threshold: 0.3, // lower = stricter, higher = more forgiving
+        threshold: 0.3
     });
 
     const result = fuse.search(input);
@@ -13,80 +40,74 @@ function normalizeNeighborhood(input, neighborhoods) {
     return result.length > 0 ? result[0].item.name : null;
 }
 
-
-
-
-const express = require('express');
-const app = express();
-const valuationConfig = require('./config/valuation.json');
-
-app.use(express.json());
-
+// -------------------------------
+// Root route
+// -------------------------------
 app.get('/', (req, res) => {
   res.send('API is running');
 });
 
+// -------------------------------
+// Valuation route
+// -------------------------------
 app.post('/estimate', (req, res) => {
     try {
-        const { neighborhood, surface, type, condition, floor } = req.body;
-
+        let { neighborhood, surface, type, condition, floor } = req.body;
         const config = valuationConfig;
 
-        // 1. Validate neighborhood
-          const normalized = normalizeNeighborhood(neighborhood, config.neighborhoods);
+        // 1. Arabic normalization
+        if (arabicMap[neighborhood]) {
+            neighborhood = arabicMap[neighborhood];
+        }
 
-if (!normalized) {
-    return res.status(400).json({ error: "Unknown neighborhood" });
-}
-     
-        
+        // 2. Fuzzy matching
+        const normalized = normalizeNeighborhood(neighborhood, config.neighborhoods);
 
-        // 2. Extract base price per m²
+        if (!normalized) {
+            return res.status(400).json({ error: "Unknown neighborhood" });
+        }
 
-       const basePrice = config.neighborhoods[normalized];
+        // 3. Base price
+        let basePrice = config.neighborhoods[normalized];
 
-       // 1. Arabic normalization
-if (arabicMap[neighborhood]) {
-    neighborhood = arabicMap[neighborhood];
-}
+        // 4. Property type factor
+        let typeFactor = config.propertyTypes[type] || 1;
 
-// 2. Fuzzy match the neighborhood
-const normalized = normalizeNeighborhood(neighborhood, config.neighborhoods);
+        // 5. Villa premium (neighborhood‑specific)
+        if (type === "Villa" && config.villaPremium && config.villaPremium[normalized]) {
+            typeFactor *= config.villaPremium[normalized];
+        }
 
-if (!normalized) {
-    return res.status(400).json({ error: "Unknown neighborhood" });
-}
-
-// 3. Use the normalized neighborhood for pricing
-const basePrice = config.neighborhoods[normalized];
-
-
-      
-        // 3. Apply type factor
-        const typeFactor = config.propertyTypes[type] || 1;
-
-        // 4. Apply condition factor
+        // 6. Condition factor
         const conditionFactor = config.conditions[condition] || 1;
 
-        // 5. Apply floor adjustment
-        const floorFactor = 1 + (floor * 0.01); // +1% per floor
+        // 7. Floor factor
+        const floorFactor = 1 + (floor * 0.01);
 
-        // 6. Calculate price per m²
+        // 8. Final price per m²
         const pricePerM2 = basePrice * typeFactor * conditionFactor * floorFactor;
 
-        // 7. Final estimated price
+        // 9. Estimated price
         const estimatedPrice = Math.round(pricePerM2 * surface);
 
-        // 8. Confidence range (±10%)
+        // 10. Volatility-based confidence
+        const vol = config.volatility?.[normalized] || 0.1;
+
         const confidence = {
-            low: Math.round(estimatedPrice * 0.9),
-            high: Math.round(estimatedPrice * 1.1)
+            low: Math.round(estimatedPrice * (1 - vol)),
+            high: Math.round(estimatedPrice * (1 + vol))
         };
 
+        // 11. Min/max range (if available)
+        const range = config.ranges?.[normalized] || null;
+
+        // 12. Response
         res.json({
+            neighborhood: normalized,
             estimatedPrice,
             pricePerM2: Math.round(pricePerM2),
             confidence,
+            range,
             inputs: { neighborhood, surface, type, condition, floor }
         });
 
@@ -95,7 +116,8 @@ const basePrice = config.neighborhoods[normalized];
     }
 });
 
+// -------------------------------
+// Start server
+// -------------------------------
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-console.log("Loaded config:", valuationConfig);
