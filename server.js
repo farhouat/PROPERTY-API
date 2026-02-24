@@ -1,3 +1,21 @@
+function normalizeNeighborhood(input, neighborhoods) {
+    const Fuse = require("fuse.js");
+
+    const list = Object.keys(neighborhoods).map(n => ({ name: n }));
+
+    const fuse = new Fuse(list, {
+        keys: ["name"],
+        threshold: 0.3, // lower = stricter, higher = more forgiving
+    });
+
+    const result = fuse.search(input);
+
+    return result.length > 0 ? result[0].item.name : null;
+}
+
+
+
+
 const express = require('express');
 const app = express();
 const valuationConfig = require('./config/valuation.json');
@@ -15,13 +33,35 @@ app.post('/estimate', (req, res) => {
         const config = valuationConfig;
 
         // 1. Validate neighborhood
-        if (!config.neighborhoods[neighborhood]) {
-            return res.status(400).json({ error: "Unknown neighborhood" });
-        }
+          const normalized = normalizeNeighborhood(neighborhood, config.neighborhoods);
+
+if (!normalized) {
+    return res.status(400).json({ error: "Unknown neighborhood" });
+}
+     
+        
 
         // 2. Extract base price per m²
-        const basePrice = config.neighborhoods[neighborhood];
 
+       const basePrice = config.neighborhoods[normalized];
+
+       // 1. Arabic normalization
+if (arabicMap[neighborhood]) {
+    neighborhood = arabicMap[neighborhood];
+}
+
+// 2. Fuzzy match the neighborhood
+const normalized = normalizeNeighborhood(neighborhood, config.neighborhoods);
+
+if (!normalized) {
+    return res.status(400).json({ error: "Unknown neighborhood" });
+}
+
+// 3. Use the normalized neighborhood for pricing
+const basePrice = config.neighborhoods[normalized];
+
+
+      
         // 3. Apply type factor
         const typeFactor = config.propertyTypes[type] || 1;
 
