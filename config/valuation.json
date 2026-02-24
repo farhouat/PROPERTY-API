@@ -1,3 +1,21 @@
 {
-  "example": "value"
+  "neighborhoods": {
+    "Al Wifaq": 12000,
+    "Al Manar": 11000,
+    "Al Falah": 10000,
+    "Oulfa": 9000
+  },
+
+  "propertyTypes": {
+    "Apartment": 1,
+    "Villa": 1.5,
+    "Studio": 0.85
+  },
+
+  "conditions": {
+    "Excellent": 1.1,
+    "Good": 1,
+    "Average": 0.9,
+    "Needs Renovation": 0.75
+  }
 }
