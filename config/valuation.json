@@ -1,6 +1,5 @@
 {
   "neighborhoods": {
-    
     "Anfa": 23000,
     "Racine": 22000,
     "Gauthier": 21000,
@@ -44,14 +43,14 @@
     "Hay Al Inara": 9000,
     "Hay Al Matar": 10000,
     "Technopark": 14000
-
-    
   },
 
   "propertyTypes": {
     "Apartment": 1,
-    "Villa": 1.5,
-    "Studio": 0.85
+    "Villa": 1.6,
+    "Studio": 0.85,
+    "Duplex": 1.25,
+    "Penthouse": 1.8
   },
 
   "conditions": {
@@ -59,5 +58,34 @@
     "Good": 1,
     "Average": 0.9,
     "Needs Renovation": 0.75
+  },
+
+  "volatility": {
+    "Anfa": 0.05,
+    "Racine": 0.06,
+    "Gauthier": 0.07,
+    "Bourgogne": 0.12,
+    "Maarif": 0.10,
+    "Maarif Extension": 0.08,
+    "Oasis": 0.04,
+    "Californie": 0.05,
+    "Sidi Maarouf": 0.09,
+    "Mandarouna": 0.11,
+    "Nassim": 0.13,
+    "Errahma": 0.15
+  },
+
+  "ranges": {
+    "Anfa": { "min": 20000, "max": 26000 },
+    "Maarif": { "min": 15000, "max": 19000 },
+    "Oulfa": { "min": 8000, "max": 10000 }
+  },
+
+  "villaPremium": {
+    "Californie": 1.8,
+    "Oasis": 1.5,
+    "Anfa": 2.0,
+    "Maarif": 1.3,
+    "Oulfa": 1.1
   }
 }
