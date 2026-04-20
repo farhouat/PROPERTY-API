@@ -81,10 +81,10 @@
       "Centre Mediouna": { "base_price_m2": 8500, "standing": "economique" },
       "Zones Résidentielles": { "base_price_m2": 9000, "standing": "moyen" }
     }
-  }
-}
+  },
 
-{
+
+
   "Rabat": {
     "city_average_m2": 15000,
     "growth_factor": 1.03,
@@ -147,11 +147,11 @@
       "Bir Rami": { "base_price_m2": 10500, "standing": "moyen" },
       "Maghrib Arabi": { "base_price_m2": 10000, "standing": "moyen" }
     }
-  }
-}
+  },
 
-{
-  "Marrakech": {
+
+
+  "Marrakech":{
     "city_average_m2": 13000,
     "growth_factor": 1.05,
     "neighborhoods": {
@@ -209,9 +209,9 @@
       "Ben Guerir": { "base_price_m2": 7000, "standing": "moyen" },
       "Zones Urbaines": { "base_price_m2": 6500, "standing": "economique" }
     }
-  }
-}
-{
+  },
+
+
   "Tanger": {
     "city_average_m2": 12500,
     "growth_factor": 1.06,
@@ -306,10 +306,10 @@
       "Centre Ksar El Kebir": { "base_price_m2": 7500, "standing": "economique" },
       "Quartiers Résidentiels": { "base_price_m2": 8000, "standing": "moyen" }
     }
-  }
-}
+  },
 
-{
+
+
   "Fès": {
     "city_average_m2": 9000,
     "growth_factor": 1.02,
@@ -381,10 +381,10 @@
       "Centre Taza": { "base_price_m2": 7000, "standing": "economique" },
       "Quartiers Résidentiels": { "base_price_m2": 7500, "standing": "moyen" }
     }
-  }
-}
+  },
 
-{
+
+
   "Oujda": {
     "city_average_m2": 8500,
     "growth_factor": 1.01,
@@ -444,10 +444,10 @@
       "Centre Figuig": { "base_price_m2": 6500, "standing": "economique" },
       "Quartiers Résidentiels": { "base_price_m2": 7000, "standing": "moyen" }
     }
-  }
-}
+  },
 
-{
+
+
   "Agadir": {
     "city_average_m2": 12000,
     "growth_factor": 1.04,
@@ -524,10 +524,10 @@
       "Biougra": { "base_price_m2": 7000, "standing": "economique" },
       "Quartiers Résidentiels": { "base_price_m2": 7500, "standing": "moyen" }
     }
-  }
-}
+  },
 
-{
+
+
   "Laayoune": {
     "city_average_m2": 9000,
     "growth_factor": 1.00,
@@ -575,7 +575,6 @@
       "Quartiers Résidentiels": { "base_price_m2": 7000, "standing": "moyen" }
     }
   },
-
   "Tarfaya": {
     "city_average_m2": 6000,
     "growth_factor": 1.00,
@@ -584,49 +583,47 @@
       "Zones Résidentielles": { "base_price_m2": 6500, "standing": "moyen" }
     }
   },
-
-  "Assa-Zag": {
-    "city_average_m2": 6000,
-    "growth_factor": 1.00,
-    "neighborhoods": {
-      "Centre Assa": { "base_price_m2": 6000, "standing": "economique" },
-      "Centre Zag": { "base_price_m2": 6200, "standing": "economique" }
+"Assa-Zag": {
+  "city_average_m2": 6000,
+  "growth_factor": 1.00,
+  "neighborhoods": {
+    "Centre Assa": { "base_price_m2": 6000, "standing": "economique" },
+    "Centre Zag": { "base_price_m2": 6200, "standing": "economique" }
     }
-  }
-}
+  },
 
-{
-  "DEFAULT_CITY": {
-    "city_average_m2": 9000,
-    "growth_factor": 1.00,
-    "neighborhoods": {
-      "DEFAULT_NEIGHBORHOOD": {
-        "base_price_m2": 9000,
-        "standing": "moyen"
+"DEFAULT_CITY": {
+  "city_average_m2": 9000,
+  "growth_factor": 1.00,
+  "neighborhoods": {
+    "DEFAULT_NEIGHBORHOOD": {
+      "base_price_m2": 9000,
+      "standing": "moyen"
       }
     }
   },
 
-  "FALLBACK_RULES": {
-    "city_not_found": {
-      "use": "DEFAULT_CITY",
-      "description": "If the city is not in the dataset, use the default city baseline."
-    },
-    "neighborhood_not_found": {
-      "use": "city_average_m2",
-      "description": "If the neighborhood is missing, use the city average price per m2."
-    },
-    "standing_adjustments": {
-      "economique": 0.85,
-      "moyen": 1.00,
-      "moyen_haut": 1.15,
-      "haut": 1.30,
-      "luxe": 1.50
-    },
-    "calculation_logic": {
-      "formula": "final_price = base_price_m2 * standing_factor * city_growth_factor",
-      "notes": "If base_price_m2 is missing, fallback to city_average_m2."
-    }
+"FALLBACK_RULES": {
+  "city_not_found": {
+    "use": "DEFAULT_CITY",
+    "description": "If the city is not in the dataset, use the default city baseline."
+  },
+  "neighborhood_not_found": {
+    "use": "city_average_m2",
+    "description": "If the neighborhood is missing, use the city average price per m2."
+  },
+  "standing_adjustments": {
+    "economique": 0.85,
+    "moyen": 1.00,
+    "moyen_haut": 1.15,
+    "haut": 1.30,
+    "luxe": 1.50
+  },
+  "calculation_logic": {
+    "formula": "final_price = base_price_m2 * standing_factor * city_growth_factor",
+    "notes": "If base_price_m2 is missing, fallback to city_average_m2."
   }
 }
-
+}
+  
+  
