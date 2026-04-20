@@ -1,6 +1,8 @@
 const express = require('express');
 const Fuse = require('fuse.js');
 const app = express();
+
+const { unifiedEstimate } = require('./services/valuationService');
 const valuationConfig = require('./config/valuation.json');
 
 app.use(express.json());
@@ -8,7 +10,7 @@ app.use(express.json());
 console.log("Loaded config:", valuationConfig);
 
 // -------------------------------
-// Arabic → French neighborhood map
+// Arabic → French neighborhood map (Casablanca only)
 // -------------------------------
 const arabicMap = {
     "الوفاق": "Al Wifaq",
@@ -25,7 +27,7 @@ const arabicMap = {
 };
 
 // -------------------------------
-// Fuzzy matching helper
+// Fuzzy matching helper (Casablanca only)
 // -------------------------------
 function normalizeNeighborhood(input, neighborhoods) {
     const list = Object.keys(neighborhoods).map(n => ({ name: n }));
@@ -36,7 +38,6 @@ function normalizeNeighborhood(input, neighborhoods) {
     });
 
     const result = fuse.search(input);
-
     return result.length > 0 ? result[0].item.name : null;
 }
 
@@ -48,7 +49,21 @@ app.get('/', (req, res) => {
 });
 
 // -------------------------------
-// Valuation route
+// UNIFIED VALUATION ENGINE ROUTE
+// -------------------------------
+app.post('/api/estimate', (req, res) => {
+    const result = unifiedEstimate(req.body);
+
+    if (result.error) {
+        return res.status(400).json(result);
+    }
+
+    res.json(result);
+});
+
+// -------------------------------
+// OLD CASABLANCA ROUTE (OPTIONAL)
+// You can keep it for backward compatibility
 // -------------------------------
 app.post('/estimate', (req, res) => {
     try {
@@ -73,7 +88,7 @@ app.post('/estimate', (req, res) => {
         // 4. Property type factor
         let typeFactor = config.propertyTypes[type] || 1;
 
-        // 5. Villa premium (neighborhood‑specific)
+        // 5. Villa premium
         if (type === "Villa" && config.villaPremium && config.villaPremium[normalized]) {
             typeFactor *= config.villaPremium[normalized];
         }
@@ -98,7 +113,7 @@ app.post('/estimate', (req, res) => {
             high: Math.round(estimatedPrice * (1 + vol))
         };
 
-        // 11. Min/max range (if available)
+        // 11. Min/max range
         const range = config.ranges?.[normalized] || null;
 
         // 12. Response

@@ -1,0 +1,632 @@
+{
+  "Casablanca": {
+    "city_average_m2": 13500,
+    "growth_factor": 1.04,
+    "neighborhoods": {
+      "Maarif": { "base_price_m2": 14500, "standing": "moyen_haut" },
+      "Maarif Extension": { "base_price_m2": 15000, "standing": "moyen_haut" },
+      "Gauthier": { "base_price_m2": 16000, "standing": "haut" },
+      "Racine": { "base_price_m2": 17000, "standing": "haut" },
+      "Anfa": { "base_price_m2": 18500, "standing": "haut" },
+      "Anfa Supérieur": { "base_price_m2": 19500, "standing": "luxe" },
+      "Californie": { "base_price_m2": 18000, "standing": "haut" },
+      "Oasis": { "base_price_m2": 15500, "standing": "moyen_haut" },
+      "Bourgogne": { "base_price_m2": 13500, "standing": "moyen_haut" },
+      "Bourgogne Ouest": { "base_price_m2": 14500, "standing": "moyen_haut" },
+      "Ain Diab": { "base_price_m2": 19000, "standing": "luxe" },
+      "Ain Sebaa": { "base_price_m2": 10500, "standing": "moyen" },
+      "Sidi Bernoussi": { "base_price_m2": 9000, "standing": "economique" },
+      "Derb Sultan": { "base_price_m2": 9000, "standing": "moyen" },
+      "Hay Hassani": { "base_price_m2": 10000, "standing": "moyen" },
+      "Sbata": { "base_price_m2": 8500, "standing": "economique" },
+      "Ben Msik": { "base_price_m2": 8000, "standing": "economique" },
+      "Mers Sultan": { "base_price_m2": 12000, "standing": "moyen" },
+      "Les Princesses": { "base_price_m2": 14000, "standing": "moyen_haut" },
+      "Val Fleuri": { "base_price_m2": 15000, "standing": "moyen_haut" },
+      "Longchamps": { "base_price_m2": 15500, "standing": "haut" },
+      "Palmier": { "base_price_m2": 16000, "standing": "haut" },
+      "Ferme Bretonne": { "base_price_m2": 13000, "standing": "moyen_haut" },
+      "Sidi Maarouf": { "base_price_m2": 12500, "standing": "moyen" },
+      "Technopark": { "base_price_m2": 14000, "standing": "moyen_haut" },
+      "Ain Chock": { "base_price_m2": 10500, "standing": "moyen" },
+      "Lissasfa": { "base_price_m2": 9000, "standing": "economique" }
+    }
+  },
+
+  "Mohammedia": {
+    "city_average_m2": 11500,
+    "growth_factor": 1.03,
+    "neighborhoods": {
+      "Centre Ville": { "base_price_m2": 12000, "standing": "moyen_haut" },
+      "Sablettes": { "base_price_m2": 13000, "standing": "haut" },
+      "Mansouria": { "base_price_m2": 12500, "standing": "moyen_haut" },
+      "Wafa": { "base_price_m2": 11000, "standing": "moyen" },
+      "Al Alia": { "base_price_m2": 10000, "standing": "moyen" }
+    }
+  },
+
+  "Bouskoura": {
+    "city_average_m2": 16000,
+    "growth_factor": 1.07,
+    "neighborhoods": {
+      "Ville Verte": { "base_price_m2": 18000, "standing": "luxe" },
+      "Golf City": { "base_price_m2": 17500, "standing": "luxe" },
+      "Centre Bouskoura": { "base_price_m2": 14000, "standing": "moyen_haut" }
+    }
+  },
+
+  "Dar Bouazza": {
+    "city_average_m2": 14500,
+    "growth_factor": 1.06,
+    "neighborhoods": {
+      "Tamaris": { "base_price_m2": 13500, "standing": "moyen_haut" },
+      "Jack Beach": { "base_price_m2": 15000, "standing": "haut" },
+      "Palm Beach": { "base_price_m2": 15500, "standing": "haut" }
+    }
+  },
+
+  "Nouaceur": {
+    "city_average_m2": 11000,
+    "growth_factor": 1.04,
+    "neighborhoods": {
+      "Nouaceur Centre": { "base_price_m2": 11000, "standing": "moyen" },
+      "Aéroport Zone": { "base_price_m2": 12000, "standing": "moyen_haut" }
+    }
+  },
+
+  "Mediouna": {
+    "city_average_m2": 8500,
+    "growth_factor": 1.02,
+    "neighborhoods": {
+      "Centre Mediouna": { "base_price_m2": 8500, "standing": "economique" },
+      "Zones Résidentielles": { "base_price_m2": 9000, "standing": "moyen" }
+    }
+  }
+}
+
+{
+  "Rabat": {
+    "city_average_m2": 15000,
+    "growth_factor": 1.03,
+    "neighborhoods": {
+      "Agdal": { "base_price_m2": 15000, "standing": "moyen_haut" },
+      "Hay Riad": { "base_price_m2": 17000, "standing": "haut" },
+      "Souissi": { "base_price_m2": 20000, "standing": "luxe" },
+      "Akkari": { "base_price_m2": 11000, "standing": "moyen" },
+      "Yacoub El Mansour": { "base_price_m2": 10500, "standing": "moyen" },
+      "Hassan": { "base_price_m2": 16000, "standing": "haut" },
+      "Océan": { "base_price_m2": 13000, "standing": "moyen_haut" },
+      "Les Orangers": { "base_price_m2": 14000, "standing": "moyen_haut" },
+      "Aviation": { "base_price_m2": 14500, "standing": "moyen_haut" },
+      "Diour Jamaa": { "base_price_m2": 12000, "standing": "moyen" }
+    }
+  },
+
+  "Salé": {
+    "city_average_m2": 10500,
+    "growth_factor": 1.02,
+    "neighborhoods": {
+      "Hay Salam": { "base_price_m2": 9500, "standing": "economique" },
+      "Tabriquet": { "base_price_m2": 10000, "standing": "moyen" },
+      "Bettana": { "base_price_m2": 11000, "standing": "moyen" },
+      "Hay Karima": { "base_price_m2": 8500, "standing": "economique" },
+      "Sidi Moussa": { "base_price_m2": 9000, "standing": "economique" },
+      "Hssaine": { "base_price_m2": 11500, "standing": "moyen_haut" }
+    }
+  },
+
+  "Témara": {
+    "city_average_m2": 12000,
+    "growth_factor": 1.05,
+    "neighborhoods": {
+      "Wifaq": { "base_price_m2": 13000, "standing": "moyen_haut" },
+      "Massira": { "base_price_m2": 11500, "standing": "moyen" },
+      "Harhoura": { "base_price_m2": 16000, "standing": "haut" },
+      "Sidi Taibi": { "base_price_m2": 9000, "standing": "economique" },
+      "Ain Atig": { "base_price_m2": 11000, "standing": "moyen" }
+    }
+  },
+
+  "Skhirat": {
+    "city_average_m2": 13000,
+    "growth_factor": 1.06,
+    "neighborhoods": {
+      "Skhirat Plage": { "base_price_m2": 15000, "standing": "haut" },
+      "Centre Skhirat": { "base_price_m2": 12000, "standing": "moyen" },
+      "Cherrat": { "base_price_m2": 14000, "standing": "moyen_haut" }
+    }
+  },
+
+  "Kénitra": {
+    "city_average_m2": 11000,
+    "growth_factor": 1.03,
+    "neighborhoods": {
+      "Ville Haute": { "base_price_m2": 12000, "standing": "moyen_haut" },
+      "Mehdia": { "base_price_m2": 13000, "standing": "haut" },
+      "Oulad Oujih": { "base_price_m2": 9500, "standing": "economique" },
+      "Bir Rami": { "base_price_m2": 10500, "standing": "moyen" },
+      "Maghrib Arabi": { "base_price_m2": 10000, "standing": "moyen" }
+    }
+  }
+}
+
+{
+  "Marrakech": {
+    "city_average_m2": 13000,
+    "growth_factor": 1.05,
+    "neighborhoods": {
+      "Guéliz": { "base_price_m2": 13000, "standing": "moyen_haut" },
+      "Hivernage": { "base_price_m2": 16000, "standing": "haut" },
+      "Palmeraie": { "base_price_m2": 18000, "standing": "luxe" },
+      "Targa": { "base_price_m2": 12000, "standing": "moyen_haut" },
+      "Agdal": { "base_price_m2": 14000, "standing": "haut" },
+      "Sidi Youssef Ben Ali": { "base_price_m2": 8500, "standing": "economique" },
+      "Daoudiate": { "base_price_m2": 10000, "standing": "moyen" },
+      "Massira": { "base_price_m2": 9500, "standing": "moyen" },
+      "Hay Mohammadi": { "base_price_m2": 11000, "standing": "moyen" },
+      "Route de Casablanca": { "base_price_m2": 11500, "standing": "moyen_haut" },
+      "Route de Fès": { "base_price_m2": 10500, "standing": "moyen" },
+      "Route d’Amizmiz": { "base_price_m2": 12500, "standing": "moyen_haut" },
+      "Route de l’Ourika": { "base_price_m2": 12000, "standing": "moyen_haut" },
+      "Médina": { "base_price_m2": 14000, "standing": "haut" },
+      "Sidi Ghanem": { "base_price_m2": 11500, "standing": "moyen_haut" }
+    }
+  },
+
+  "Safi": {
+    "city_average_m2": 9000,
+    "growth_factor": 1.01,
+    "neighborhoods": {
+      "Safi Centre": { "base_price_m2": 9500, "standing": "moyen" },
+      "Hay El Bahja": { "base_price_m2": 8500, "standing": "economique" },
+      "Sidi Bouzid": { "base_price_m2": 11000, "standing": "moyen_haut" },
+      "Quartier Industriel": { "base_price_m2": 8000, "standing": "economique" }
+    }
+  },
+
+  "Chichaoua": {
+    "city_average_m2": 7000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Chichaoua": { "base_price_m2": 7000, "standing": "economique" },
+      "Zones Résidentielles": { "base_price_m2": 7500, "standing": "moyen" }
+    }
+  },
+
+  "Youssoufia": {
+    "city_average_m2": 6500,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Youssoufia": { "base_price_m2": 6500, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 7000, "standing": "moyen" }
+    }
+  },
+
+  "Rehamna": {
+    "city_average_m2": 6000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Ben Guerir": { "base_price_m2": 7000, "standing": "moyen" },
+      "Zones Urbaines": { "base_price_m2": 6500, "standing": "economique" }
+    }
+  }
+}
+{
+  "Tanger": {
+    "city_average_m2": 12500,
+    "growth_factor": 1.06,
+    "neighborhoods": {
+      "Malabata": { "base_price_m2": 15000, "standing": "haut" },
+      "Iberia": { "base_price_m2": 14500, "standing": "moyen_haut" },
+      "Jbel Kbir": { "base_price_m2": 17000, "standing": "luxe" },
+      "Gzenaya": { "base_price_m2": 11000, "standing": "moyen" },
+      "Mghogha": { "base_price_m2": 9000, "standing": "economique" },
+      "Boukhalef": { "base_price_m2": 8500, "standing": "economique" },
+      "Charf": { "base_price_m2": 10500, "standing": "moyen" },
+      "Charf Souani": { "base_price_m2": 11500, "standing": "moyen" },
+      "Centre Ville": { "base_price_m2": 13500, "standing": "moyen_haut" },
+      "Marchan": { "base_price_m2": 16000, "standing": "haut" },
+      "Californie Tanger": { "base_price_m2": 14000, "standing": "moyen_haut" }
+    }
+  },
+
+  "Tétouan": {
+    "city_average_m2": 9000,
+    "growth_factor": 1.02,
+    "neighborhoods": {
+      "Centre Tétouan": { "base_price_m2": 9500, "standing": "moyen" },
+      "Oued Laou": { "base_price_m2": 11000, "standing": "moyen_haut" },
+      "Mhannech": { "base_price_m2": 10000, "standing": "moyen" },
+      "Kabila": { "base_price_m2": 10500, "standing": "moyen_haut" },
+      "Sania Ramel": { "base_price_m2": 8500, "standing": "economique" }
+    }
+  },
+
+  "Martil": {
+    "city_average_m2": 11000,
+    "growth_factor": 1.04,
+    "neighborhoods": {
+      "Corniche Martil": { "base_price_m2": 13000, "standing": "haut" },
+      "Centre Martil": { "base_price_m2": 11000, "standing": "moyen" },
+      "Cité Jardins": { "base_price_m2": 11500, "standing": "moyen_haut" }
+    }
+  },
+
+  "M'diq": {
+    "city_average_m2": 13500,
+    "growth_factor": 1.05,
+    "neighborhoods": {
+      "M'diq Plage": { "base_price_m2": 15000, "standing": "haut" },
+      "Centre M'diq": { "base_price_m2": 13000, "standing": "moyen_haut" }
+    }
+  },
+
+  "Fnideq": {
+    "city_average_m2": 10000,
+    "growth_factor": 1.03,
+    "neighborhoods": {
+      "Fnideq Centre": { "base_price_m2": 10000, "standing": "moyen" },
+      "Quartiers Résidentiels": { "base_price_m2": 10500, "standing": "moyen_haut" }
+    }
+  },
+
+  "Al Hoceima": {
+    "city_average_m2": 10000,
+    "growth_factor": 1.02,
+    "neighborhoods": {
+      "Centre Al Hoceima": { "base_price_m2": 10500, "standing": "moyen" },
+      "Sfiha": { "base_price_m2": 11500, "standing": "moyen_haut" },
+      "Imzouren": { "base_price_m2": 8500, "standing": "economique" },
+      "Ait Youssef Ou Ali": { "base_price_m2": 9000, "standing": "moyen" }
+    }
+  },
+
+  "Chefchaouen": {
+    "city_average_m2": 9500,
+    "growth_factor": 1.03,
+    "neighborhoods": {
+      "Médina": { "base_price_m2": 11000, "standing": "moyen_haut" },
+      "Quartiers Résidentiels": { "base_price_m2": 9000, "standing": "moyen" }
+    }
+  },
+
+  "Larache": {
+    "city_average_m2": 8500,
+    "growth_factor": 1.01,
+    "neighborhoods": {
+      "Centre Larache": { "base_price_m2": 9000, "standing": "moyen" },
+      "Ksar Majaz": { "base_price_m2": 8000, "standing": "economique" }
+    }
+  },
+
+  "Ksar El Kebir": {
+    "city_average_m2": 7500,
+    "growth_factor": 0.99,
+    "neighborhoods": {
+      "Centre Ksar El Kebir": { "base_price_m2": 7500, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 8000, "standing": "moyen" }
+    }
+  }
+}
+
+{
+  "Fès": {
+    "city_average_m2": 9000,
+    "growth_factor": 1.02,
+    "neighborhoods": {
+      "Ville Nouvelle": { "base_price_m2": 11000, "standing": "moyen_haut" },
+      "Narjiss": { "base_price_m2": 9000, "standing": "moyen" },
+      "Zouagha": { "base_price_m2": 8500, "standing": "economique" },
+      "Saiss": { "base_price_m2": 9500, "standing": "moyen" },
+      "Hay Al Adarissa": { "base_price_m2": 8000, "standing": "economique" },
+      "Route d’Imouzzer": { "base_price_m2": 10500, "standing": "moyen_haut" },
+      "Ain Chkef": { "base_price_m2": 10000, "standing": "moyen_haut" },
+      "Médina Fès": { "base_price_m2": 12000, "standing": "haut" }
+    }
+  },
+
+  "Meknès": {
+    "city_average_m2": 8500,
+    "growth_factor": 1.01,
+    "neighborhoods": {
+      "Hamria": { "base_price_m2": 10000, "standing": "moyen_haut" },
+      "Ville Nouvelle": { "base_price_m2": 9500, "standing": "moyen_haut" },
+      "Marjane": { "base_price_m2": 9000, "standing": "moyen" },
+      "Sidi Bouzekri": { "base_price_m2": 7500, "standing": "economique" },
+      "Bassatine": { "base_price_m2": 8000, "standing": "moyen" },
+      "Ouislane": { "base_price_m2": 7000, "standing": "economique" }
+    }
+  },
+
+  "Ifrane": {
+    "city_average_m2": 14000,
+    "growth_factor": 1.03,
+    "neighborhoods": {
+      "Centre Ifrane": { "base_price_m2": 15000, "standing": "haut" },
+      "Quartiers Résidentiels": { "base_price_m2": 13500, "standing": "moyen_haut" }
+    }
+  },
+
+  "Azrou": {
+    "city_average_m2": 8000,
+    "growth_factor": 1.01,
+    "neighborhoods": {
+      "Centre Azrou": { "base_price_m2": 8000, "standing": "moyen" },
+      "Quartiers Résidentiels": { "base_price_m2": 8500, "standing": "moyen" }
+    }
+  },
+
+  "Sefrou": {
+    "city_average_m2": 7500,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Sefrou": { "base_price_m2": 7500, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 8000, "standing": "moyen" }
+    }
+  },
+
+  "El Hajeb": {
+    "city_average_m2": 7000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre El Hajeb": { "base_price_m2": 7000, "standing": "economique" },
+      "Zones Résidentielles": { "base_price_m2": 7500, "standing": "moyen" }
+    }
+  },
+
+  "Taza": {
+    "city_average_m2": 7000,
+    "growth_factor": 0.98,
+    "neighborhoods": {
+      "Centre Taza": { "base_price_m2": 7000, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 7500, "standing": "moyen" }
+    }
+  }
+}
+
+{
+  "Oujda": {
+    "city_average_m2": 8500,
+    "growth_factor": 1.01,
+    "neighborhoods": {
+      "Centre Oujda": { "base_price_m2": 9000, "standing": "moyen" },
+      "Hay Al Qods": { "base_price_m2": 9500, "standing": "moyen_haut" },
+      "Sidi Yahya": { "base_price_m2": 8500, "standing": "moyen" },
+      "Annasr": { "base_price_m2": 8000, "standing": "economique" },
+      "Al Mandar Al Jamil": { "base_price_m2": 10000, "standing": "moyen_haut" }
+    }
+  },
+
+  "Nador": {
+    "city_average_m2": 10000,
+    "growth_factor": 1.02,
+    "neighborhoods": {
+      "Centre Nador": { "base_price_m2": 10500, "standing": "moyen_haut" },
+      "Beni Ensar": { "base_price_m2": 11000, "standing": "moyen_haut" },
+      "Al Aroui": { "base_price_m2": 9000, "standing": "moyen" },
+      "Selouane": { "base_price_m2": 8500, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 9500, "standing": "moyen" }
+    }
+  },
+
+  "Berkane": {
+    "city_average_m2": 8000,
+    "growth_factor": 1.01,
+    "neighborhoods": {
+      "Centre Berkane": { "base_price_m2": 8000, "standing": "moyen" },
+      "Agdal Berkane": { "base_price_m2": 8500, "standing": "moyen" },
+      "Quartiers Résidentiels": { "base_price_m2": 9000, "standing": "moyen_haut" }
+    }
+  },
+
+  "Taourirt": {
+    "city_average_m2": 7000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Taourirt": { "base_price_m2": 7000, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 7500, "standing": "moyen" }
+    }
+  },
+
+  "Jerada": {
+    "city_average_m2": 6000,
+    "growth_factor": 0.99,
+    "neighborhoods": {
+      "Centre Jerada": { "base_price_m2": 6000, "standing": "economique" },
+      "Zones Résidentielles": { "base_price_m2": 6500, "standing": "moyen" }
+    }
+  },
+
+  "Figuig": {
+    "city_average_m2": 6500,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Figuig": { "base_price_m2": 6500, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 7000, "standing": "moyen" }
+    }
+  }
+}
+
+{
+  "Agadir": {
+    "city_average_m2": 12000,
+    "growth_factor": 1.04,
+    "neighborhoods": {
+      "Founty": { "base_price_m2": 15000, "standing": "haut" },
+      "Marina Agadir": { "base_price_m2": 17000, "standing": "luxe" },
+      "Talborjt": { "base_price_m2": 11500, "standing": "moyen_haut" },
+      "Hay Mohammadi": { "base_price_m2": 10000, "standing": "moyen" },
+      "Bensergao": { "base_price_m2": 9500, "standing": "moyen" },
+      "Dakhla": { "base_price_m2": 9000, "standing": "economique" },
+      "Tikiouine": { "base_price_m2": 8500, "standing": "economique" }
+    }
+  },
+
+  "Inezgane": {
+    "city_average_m2": 8500,
+    "growth_factor": 1.02,
+    "neighborhoods": {
+      "Centre Inezgane": { "base_price_m2": 8500, "standing": "moyen" },
+      "Taddart": { "base_price_m2": 8000, "standing": "economique" },
+      "Ait Melloul": { "base_price_m2": 9000, "standing": "moyen" }
+    }
+  },
+
+  "Dcheira": {
+    "city_average_m2": 8000,
+    "growth_factor": 1.02,
+    "neighborhoods": {
+      "Centre Dcheira": { "base_price_m2": 8000, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 8500, "standing": "moyen" }
+    }
+  },
+
+  "Aourir": {
+    "city_average_m2": 9500,
+    "growth_factor": 1.03,
+    "neighborhoods": {
+      "Aourir Centre": { "base_price_m2": 9500, "standing": "moyen" },
+      "Tamraght": { "base_price_m2": 11000, "standing": "moyen_haut" }
+    }
+  },
+
+  "Taghazout": {
+    "city_average_m2": 15000,
+    "growth_factor": 1.05,
+    "neighborhoods": {
+      "Taghazout Bay": { "base_price_m2": 17000, "standing": "luxe" },
+      "Village Taghazout": { "base_price_m2": 14000, "standing": "haut" }
+    }
+  },
+
+  "Taroudant": {
+    "city_average_m2": 7500,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Taroudant": { "base_price_m2": 7500, "standing": "moyen" },
+      "Quartiers Résidentiels": { "base_price_m2": 8000, "standing": "moyen" }
+    }
+  },
+
+  "Tiznit": {
+    "city_average_m2": 8000,
+    "growth_factor": 1.01,
+    "neighborhoods": {
+      "Centre Tiznit": { "base_price_m2": 8000, "standing": "moyen" },
+      "Quartiers Résidentiels": { "base_price_m2": 8500, "standing": "moyen" }
+    }
+  },
+
+  "Chtouka Ait Baha": {
+    "city_average_m2": 7000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Biougra": { "base_price_m2": 7000, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 7500, "standing": "moyen" }
+    }
+  }
+}
+
+{
+  "Laayoune": {
+    "city_average_m2": 9000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Hay Al Qods": { "base_price_m2": 9000, "standing": "moyen" },
+      "Médina Laayoune": { "base_price_m2": 9500, "standing": "moyen_haut" },
+      "Hay Moulay Rachid": { "base_price_m2": 8500, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 9000, "standing": "moyen" }
+    }
+  },
+
+  "Dakhla": {
+    "city_average_m2": 10000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Dakhla": { "base_price_m2": 10000, "standing": "moyen_haut" },
+      "Oued Dahab": { "base_price_m2": 9500, "standing": "moyen" },
+      "Quartiers Résidentiels": { "base_price_m2": 10500, "standing": "haut" }
+    }
+  },
+
+  "Guelmim": {
+    "city_average_m2": 7500,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Guelmim": { "base_price_m2": 7500, "standing": "moyen" },
+      "Tighmert": { "base_price_m2": 8000, "standing": "moyen" }
+    }
+  },
+
+  "Tan-Tan": {
+    "city_average_m2": 7000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Tan-Tan": { "base_price_m2": 7000, "standing": "economique" },
+      "El Ouatia": { "base_price_m2": 7500, "standing": "moyen" }
+    }
+  },
+
+  "Smara": {
+    "city_average_m2": 6500,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Smara": { "base_price_m2": 6500, "standing": "economique" },
+      "Quartiers Résidentiels": { "base_price_m2": 7000, "standing": "moyen" }
+    }
+  },
+
+  "Tarfaya": {
+    "city_average_m2": 6000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Tarfaya": { "base_price_m2": 6000, "standing": "economique" },
+      "Zones Résidentielles": { "base_price_m2": 6500, "standing": "moyen" }
+    }
+  },
+
+  "Assa-Zag": {
+    "city_average_m2": 6000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "Centre Assa": { "base_price_m2": 6000, "standing": "economique" },
+      "Centre Zag": { "base_price_m2": 6200, "standing": "economique" }
+    }
+  }
+}
+
+{
+  "DEFAULT_CITY": {
+    "city_average_m2": 9000,
+    "growth_factor": 1.00,
+    "neighborhoods": {
+      "DEFAULT_NEIGHBORHOOD": {
+        "base_price_m2": 9000,
+        "standing": "moyen"
+      }
+    }
+  },
+
+  "FALLBACK_RULES": {
+    "city_not_found": {
+      "use": "DEFAULT_CITY",
+      "description": "If the city is not in the dataset, use the default city baseline."
+    },
+    "neighborhood_not_found": {
+      "use": "city_average_m2",
+      "description": "If the neighborhood is missing, use the city average price per m2."
+    },
+    "standing_adjustments": {
+      "economique": 0.85,
+      "moyen": 1.00,
+      "moyen_haut": 1.15,
+      "haut": 1.30,
+      "luxe": 1.50
+    },
+    "calculation_logic": {
+      "formula": "final_price = base_price_m2 * standing_factor * city_growth_factor",
+      "notes": "If base_price_m2 is missing, fallback to city_average_m2."
+    }
+  }
+}
+
