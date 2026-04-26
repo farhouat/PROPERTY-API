@@ -1,55 +1,22 @@
 const express = require('express');
-const Fuse = require('fuse.js');
 const app = express();
 
 const { unifiedEstimate } = require('./services/valuationService');
-const valuationConfig = require('./config/valuation.json');
 
 app.use(express.json());
-
-console.log("Loaded config:", valuationConfig);
-
-// -------------------------------
-// Arabic → French neighborhood map (Casablanca only)
-// -------------------------------
-const arabicMap = {
-    "الوفاق": "Al Wifaq",
-    "المنار": "Al Manar",
-    "الفلاح": "Al Falah",
-    "اولفا": "Oulfa",
-    "المعاريف": "Maarif",
-    "المعاريف إكستنشن": "Maarif Extension",
-    "كاليفورنيا": "Californie",
-    "عين الذياب": "Ain Diab",
-    "عين السبع": "Ain Sebaa",
-    "سيدي معروف": "Sidi Maarouf",
-    "مرس السلطان": "Mers Sultan"
-};
-
-// -------------------------------
-// Fuzzy matching helper (Casablanca only)
-// -------------------------------
-function normalizeNeighborhood(input, neighborhoods) {
-    const list = Object.keys(neighborhoods).map(n => ({ name: n }));
-
-    const fuse = new Fuse(list, {
-        keys: ["name"],
-        threshold: 0.3
-    });
-
-    const result = fuse.search(input);
-    return result.length > 0 ? result[0].item.name : null;
-}
 
 // -------------------------------
 // Root route
 // -------------------------------
 app.get('/', (req, res) => {
-  res.send('API is running');
+    res.send('Property Valuation API is running');
 });
 
 // -------------------------------
-// UNIFIED VALUATION ENGINE ROUTE
+// UNIFIED VALUATION ENGINE
+// Supports all 53 Moroccan cities
+// Body: { city, neighborhood, surface, type, condition, floor, standing }
+// If city is omitted or "Casablanca", uses the detailed Casablanca engine
 // -------------------------------
 app.post('/api/estimate', (req, res) => {
     const result = unifiedEstimate(req.body);
@@ -62,70 +29,22 @@ app.post('/api/estimate', (req, res) => {
 });
 
 // -------------------------------
-// OLD CASABLANCA ROUTE (OPTIONAL)
-// You can keep it for backward compatibility
+// LEGACY CASABLANCA ROUTE
+// Kept for backward compatibility
+// Body: { neighborhood, surface, type, condition, floor }
 // -------------------------------
 app.post('/estimate', (req, res) => {
     try {
-        let { neighborhood, surface, type, condition, floor } = req.body;
-        const config = valuationConfig;
-
-        // 1. Arabic normalization
-        if (arabicMap[neighborhood]) {
-            neighborhood = arabicMap[neighborhood];
-        }
-
-        // 2. Fuzzy matching
-        const normalized = normalizeNeighborhood(neighborhood, config.neighborhoods);
-
-        if (!normalized) {
-            return res.status(400).json({ error: "Unknown neighborhood" });
-        }
-
-        // 3. Base price
-        let basePrice = config.neighborhoods[normalized];
-
-        // 4. Property type factor
-        let typeFactor = config.propertyTypes[type] || 1;
-
-        // 5. Villa premium
-        if (type === "Villa" && config.villaPremium && config.villaPremium[normalized]) {
-            typeFactor *= config.villaPremium[normalized];
-        }
-
-        // 6. Condition factor
-        const conditionFactor = config.conditions[condition] || 1;
-
-        // 7. Floor factor
-        const floorFactor = 1 + (floor * 0.01);
-
-        // 8. Final price per m²
-        const pricePerM2 = basePrice * typeFactor * conditionFactor * floorFactor;
-
-        // 9. Estimated price
-        const estimatedPrice = Math.round(pricePerM2 * surface);
-
-        // 10. Volatility-based confidence
-        const vol = config.volatility?.[normalized] || 0.1;
-
-        const confidence = {
-            low: Math.round(estimatedPrice * (1 - vol)),
-            high: Math.round(estimatedPrice * (1 + vol))
-        };
-
-        // 11. Min/max range
-        const range = config.ranges?.[normalized] || null;
-
-        // 12. Response
-        res.json({
-            neighborhood: normalized,
-            estimatedPrice,
-            pricePerM2: Math.round(pricePerM2),
-            confidence,
-            range,
-            inputs: { neighborhood, surface, type, condition, floor }
+        const result = unifiedEstimate({
+            ...req.body,
+            city: 'Casablanca'
         });
 
+        if (result.error) {
+            return res.status(400).json(result);
+        }
+
+        res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
