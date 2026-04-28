@@ -1,57 +1,67 @@
-const express = require('express');
-const app = express();
-
-const { unifiedEstimate } = require('./services/valuationService');
-
-app.use(express.json());
+const fs = require('fs');
+const path = require('path');
 
 // -------------------------------
-// Root route
+// Load cities data safely
 // -------------------------------
-app.get('/', (req, res) => {
-    res.send('Property Valuation API is running');
-});
+let citiesData = {};
+
+try {
+    const dataPath = path.join(__dirname, '../data/cities.json');
+    citiesData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+} catch (err) {
+    console.error("Failed to load cities data:", err.message);
+}
 
 // -------------------------------
-// UNIFIED VALUATION ENGINE
-// Supports all 53 Moroccan cities
-// Body: { city, neighborhood, surface, type, condition, floor, standing }
-// If city is omitted or "Casablanca", uses the detailed Casablanca engine
+// UNIFIED ESTIMATE FUNCTION
 // -------------------------------
-app.post('/api/estimate', (req, res) => {
-    const result = unifiedEstimate(req.body);
+function unifiedEstimate(data) {
 
-    if (result.error) {
-        return res.status(400).json(result);
+    const city = (data.city || 'Casablanca').toLowerCase();
+    const neighborhood = (data.neighborhood || '').toLowerCase();
+    const surface = Number(data.surface) || 0;
+
+    if (!neighborhood) {
+        return { error: "Neighborhood is required" };
     }
 
-    res.json(result);
-});
+    const cityData = citiesData[city];
 
-// -------------------------------
-// LEGACY CASABLANCA ROUTE
-// Kept for backward compatibility
-// Body: { neighborhood, surface, type, condition, floor }
-// -------------------------------
-app.post('/estimate', (req, res) => {
-    try {
-        const result = unifiedEstimate({
-            ...req.body,
-            city: 'Casablanca'
-        });
-
-        if (result.error) {
-            return res.status(400).json(result);
-        }
-
-        res.json(result);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+    if (!cityData) {
+        return { error: "Unknown city" };
     }
-});
 
-// -------------------------------
-// Start server
-// -------------------------------
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    const matchKey = Object.keys(cityData).find(key =>
+        key.toLowerCase().includes(neighborhood)
+    );
+
+    if (!matchKey) {
+        return { error: "Unknown neighborhood" };
+    }
+
+    const basePrice = cityData[matchKey];
+
+    if (!basePrice) {
+        return { error: "No price data found" };
+    }
+
+    let price = surface * basePrice;
+
+    // adjustments
+    if (data.type === 'Villa') price *= 1.3;
+    if (data.type === 'Studio') price *= 0.9;
+
+    if (data.condition === 'Excellent') price *= 1.1;
+    if (data.condition === 'Needs Renovation') price *= 0.85;
+
+    return {
+        city,
+        neighborhood: matchKey,
+        estimatedPrice: Math.round(price)
+    };
+}
+
+module.exports = {
+    unifiedEstimate
+};
