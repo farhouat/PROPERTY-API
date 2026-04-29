@@ -1,37 +1,112 @@
 const express = require('express');
 const app = express();
-
+const cors = require('cors');
 const { unifiedEstimate } = require('./services/valuationService');
 
 app.use(express.json());
+app.use(cors()); // Enable CORS for WordPress integration
 
 // -------------------------------
 // Root route
 // -------------------------------
 app.get('/', (req, res) => {
-    res.send('Property Valuation API is running');
+    res.json({
+        message: 'Property Valuation API is running',
+        version: '2.0',
+        endpoints: {
+            'POST /api/estimate': 'Get property estimation with full parameters',
+            'GET /api/cities': 'List all available cities',
+            'GET /api/neighborhoods/:city': 'List neighborhoods for a specific city'
+        }
+    });
+});
+
+// -------------------------------
+// GET ALL CITIES
+// Returns list of all available Moroccan cities
+// -------------------------------
+app.get('/api/cities', (req, res) => {
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        const dataPath = path.join(__dirname, 'data/morocco_valuation_dataset.json');
+        const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+        
+        const cities = Object.keys(data).filter(key => 
+            key !== 'DEFAULT_CITY' && key !== 'FALLBACK_RULES'
+        );
+        
+        res.json({
+            success: true,
+            count: cities.length,
+            cities: cities
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// -------------------------------
+// GET NEIGHBORHOODS BY CITY
+// Returns all neighborhoods for a specific city
+// -------------------------------
+app.get('/api/neighborhoods/:city', (req, res) => {
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        const dataPath = path.join(__dirname, 'data/morocco_valuation_dataset.json');
+        const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+        
+        const cityName = req.params.city;
+        const cityKey = Object.keys(data).find(key => 
+            key.toLowerCase() === cityName.toLowerCase()
+        );
+        
+        if (!cityKey) {
+            return res.status(404).json({ 
+                success: false,
+                error: 'City not found' 
+            });
+        }
+        
+        const neighborhoods = Object.keys(data[cityKey].neighborhoods);
+        
+        res.json({
+            success: true,
+            city: cityKey,
+            count: neighborhoods.length,
+            neighborhoods: neighborhoods
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // -------------------------------
 // UNIFIED VALUATION ENGINE
-// Supports all 53 Moroccan cities
+// Supports all 53+ Moroccan cities
 // Body: { city, neighborhood, surface, type, condition, floor, standing }
-// If city is omitted or "Casablanca", uses the detailed Casablanca engine
 // -------------------------------
 app.post('/api/estimate', (req, res) => {
-    const result = unifiedEstimate(req.body);
+    try {
+        const result = unifiedEstimate(req.body);
 
-    if (result.error) {
-        return res.status(400).json(result);
+        if (result.error) {
+            return res.status(400).json(result);
+        }
+
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ 
+            success: false,
+            error: err.message 
+        });
     }
-
-    res.json(result);
 });
 
 // -------------------------------
 // LEGACY CASABLANCA ROUTE
 // Kept for backward compatibility
-// Body: { neighborhood, surface, type, condition, floor }
 // -------------------------------
 app.post('/estimate', (req, res) => {
     try {
@@ -54,4 +129,7 @@ app.post('/estimate', (req, res) => {
 // Start server
 // -------------------------------
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Property Valuation API running on port ${PORT}`);
+    console.log(`API Documentation: http://localhost:${PORT}`);
+});

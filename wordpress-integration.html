@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Value Estimator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .property-estimator {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .property-estimator h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .property-estimator p.subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .estimate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        
+        .estimate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .estimate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .result-container {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            display: none;
+        }
+        
+        .result-container.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-container h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        
+        .price-display {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .price-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .price-value {
+            font-size: 32px;
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .price-range {
+            font-size: 13px;
+            color: #999;
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .detail-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .detail-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+        
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row,
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-estimator {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="property-estimator">
+        <h1>🏠 Property Value Estimator</h1>
+        <p class="subtitle">Get an instant estimate for your property in Morocco</p>
+        
+        <form id="propertyForm">
+            <div class="form-group">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" placeholder="e.g., Casablanca, Rabat, Marrakech" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="neighborhood">Neighborhood *</label>
+                <input type="text" id="neighborhood" name="neighborhood" placeholder="e.g., Maarif, Agdal, Guéliz" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="surface">Surface Area (m²) *</label>
+                    <input type="number" id="surface" name="surface" min="10" max="1000" placeholder="100" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="type">Property Type *</label>
+                    <select id="type" name="type" required>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Studio">Studio</option>
+                        <option value="Duplex">Duplex</option>
+                        <option value="Penthouse">Penthouse</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="condition">Condition *</label>
+                    <select id="condition" name="condition" required>
+                        <option value="Excellent">Excellent</option>
+                        <option value="Good">Good</option>
+                        <option value="Average">Average</option>
+                        <option value="Needs Renovation">Needs Renovation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="floor">Floor</label>
+                    <input type="number" id="floor" name="floor" min="0" max="20" value="1" placeholder="1">
+                </div>
+            </div>
+            
+            <button type="submit" class="estimate-btn">Get Estimate</button>
+        </form>
+        
+        <div id="errorMessage" class="error-message"></div>
+        
+        <div id="resultContainer" class="result-container">
+            <h2>📊 Property Estimate</h2>
+            
+            <div class="price-display">
+                <div class="price-label">Estimated Value</div>
+                <div class="price-value" id="estimatedPrice">-</div>
+                <div class="price-range" id="priceRange">-</div>
+            </div>
+            
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">City</div>
+                    <div class="detail-value" id="resultCity">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Neighborhood</div>
+                    <div class="detail-value" id="resultNeighborhood">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Price per m²</div>
+                    <div class="detail-value" id="pricePerM2">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Property Type</div>
+                    <div class="detail-value" id="resultType">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Condition</div>
+                    <div class="detail-value" id="resultCondition">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Floor</div>
+                    <div class="detail-value" id="resultFloor">-</div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 12px; color: #999; text-align: center;">
+                <span id="disclaimer"></span>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Configuration - Change this to your API URL
+        const API_URL = 'http://localhost:3000/api/estimate';
+        
+        const form = document.getElementById('propertyForm');
+        const resultContainer = document.getElementById('resultContainer');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Hide previous results
+            resultContainer.classList.remove('show');
+            errorMessage.classList.remove('show');
+            
+            // Get form values
+            const formData = {
+                city: document.getElementById('city').value.trim(),
+                neighborhood: document.getElementById('neighborhood').value.trim(),
+                surface: parseInt(document.getElementById('surface').value),
+                type: document.getElementById('type').value,
+                condition: document.getElementById('condition').value,
+                floor: parseInt(document.getElementById('floor').value) || 1
+            };
+            
+            // Show loading state
+            const submitBtn = form.querySelector('.estimate-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Calculating...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok || data.error) {
+                    throw new Error(data.error || 'Failed to get estimate');
+                }
+                
+                // Display results
+                document.getElementById('estimatedPrice').textContent = 
+                    formatCurrency(data.estimatedPrice);
+                document.getElementById('priceRange').textContent = 
+                    `Range: ${formatCurrency(data.estimatedPriceRange.min)} - ${formatCurrency(data.estimatedPriceRange.max)}`;
+                document.getElementById('resultCity').textContent = data.city;
+                document.getElementById('resultNeighborhood').textContent = data.neighborhood;
+                document.getElementById('pricePerM2').textContent = 
+                    `${formatCurrency(data.pricePerM2)} MAD/m²`;
+                document.getElementById('resultType').textContent = data.propertyType;
+                document.getElementById('resultCondition').textContent = data.condition;
+                document.getElementById('resultFloor').textContent = data.floor;
+                document.getElementById('disclaimer').textContent = data.disclaimer;
+                
+                resultContainer.classList.add('show');
+                
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.classList.add('show');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'MAD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+    </script>
+</body>
+</html>

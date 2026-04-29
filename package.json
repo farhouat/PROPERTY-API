@@ -1,12 +1,17 @@
 {
   "name": "property-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "Morocco Property Valuation API with support for 53+ cities",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
-    "express": "^5.2.1",
-    "fuse.js": "^7.1.0"
+    "cors": "^2.8.5",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
   }
 }
