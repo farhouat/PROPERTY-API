@@ -47,8 +47,58 @@ app.get('/api/cities', (req, res) => {
 });
 
 // -------------------------------
-// GET NEIGHBORHOODS BY CITY
-// Returns all neighborhoods for a specific city
+// GET NEIGHBORHOODS BY CITY (QUERY PARAM)
+// Returns all neighborhoods for a specific city using query parameter
+// -------------------------------
+app.get('/api/neighborhoods', (req, res) => {
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        const dataPath = path.join(__dirname, 'data/morocco_valuation_dataset.json');
+        const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+        
+        // Get city from query parameter
+        const city = req.query.city;
+        
+        // Validate city parameter
+        if (!city || typeof city !== 'string' || city.trim() === '') {
+            console.log("City received:", city);
+            return res.status(400).json({ 
+                error: "City is required" 
+            });
+        }
+        
+        // Normalize city: trim spaces and convert to lowercase
+        const normalizedCity = city.trim().toLowerCase();
+        console.log("City received:", city);
+        
+        // Find city (case-insensitive)
+        const cityKey = Object.keys(data).find(key => 
+            key.toLowerCase() === normalizedCity
+        );
+        
+        // If city not found, return empty neighborhoods array
+        if (!cityKey) {
+            return res.json({ 
+                neighborhoods: [] 
+            });
+        }
+        
+        // Extract neighborhoods
+        const neighborhoods = Object.keys(data[cityKey].neighborhoods);
+        
+        res.json({
+            neighborhoods: neighborhoods
+        });
+    } catch (err) {
+        console.error("Error in /api/neighborhoods endpoint:", err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// -------------------------------
+// GET NEIGHBORHOODS BY CITY (PATH PARAM - LEGACY)
+// Kept for backward compatibility
 // -------------------------------
 app.get('/api/neighborhoods/:city', (req, res) => {
     try {
