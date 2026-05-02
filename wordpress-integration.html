@@ -217,12 +217,16 @@
         <form id="propertyForm">
             <div class="form-group">
                 <label for="city">City *</label>
-                <input type="text" id="city" name="city" placeholder="e.g., Casablanca, Rabat, Marrakech" required>
+                <select id="city" name="city" required>
+                    <option value="" disabled selected>Select a city</option>
+                </select>
             </div>
             
             <div class="form-group">
                 <label for="neighborhood">Neighborhood *</label>
-                <input type="text" id="neighborhood" name="neighborhood" placeholder="e.g., Maarif, Agdal, Guéliz" required>
+                <select id="neighborhood" name="neighborhood" required disabled>
+                    <option value="" disabled selected>Select a city first</option>
+                </select>
             </div>
             
             <div class="form-row">
@@ -314,6 +318,65 @@
         const form = document.getElementById('propertyForm');
         const resultContainer = document.getElementById('resultContainer');
         const errorMessage = document.getElementById('errorMessage');
+        
+        // Fetch and populate cities on load
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Determine base API URL by slicing off '/estimate'
+                const baseUrl = API_URL.replace('/estimate', '');
+                
+                const response = await fetch(`${baseUrl}/cities`);
+                const data = await response.json();
+                
+                if (data.success && data.cities) {
+                    const citySelect = document.getElementById('city');
+                    
+                    data.cities.sort().forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        citySelect.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching cities:', error);
+            }
+        });
+        
+        // Handle city change to fetch and populate neighborhoods
+        document.getElementById('city').addEventListener('change', async (e) => {
+            const city = e.target.value;
+            const neighborhoodSelect = document.getElementById('neighborhood');
+            
+            if (!city) return;
+            
+            // Show loading state
+            neighborhoodSelect.disabled = true;
+            neighborhoodSelect.innerHTML = '<option value="" disabled selected>Loading...</option>';
+            
+            try {
+                const baseUrl = API_URL.replace('/estimate', '');
+                const response = await fetch(`${baseUrl}/neighborhoods?city=${encodeURIComponent(city)}`);
+                const data = await response.json();
+                
+                neighborhoodSelect.innerHTML = '<option value="" disabled selected>Select a neighborhood</option>';
+                
+                if (data.neighborhoods && data.neighborhoods.length > 0) {
+                    data.neighborhoods.sort().forEach(neighborhood => {
+                        const option = document.createElement('option');
+                        option.value = neighborhood;
+                        option.textContent = neighborhood;
+                        neighborhoodSelect.appendChild(option);
+                    });
+                    neighborhoodSelect.disabled = false;
+                } else {
+                    neighborhoodSelect.innerHTML = '<option value="" disabled selected>No data found</option>';
+                }
+            } catch (error) {
+                console.error('Error fetching neighborhoods:', error);
+                neighborhoodSelect.innerHTML = '<option value="" disabled selected>Error loading data</option>';
+            }
+        });
         
         form.addEventListener('submit', async (e) => {
             e.preventDefault();

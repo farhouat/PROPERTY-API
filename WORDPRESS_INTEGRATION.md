@@ -107,12 +107,16 @@ function property_estimator_shortcode() {
         <form id="propertyForm" class="property-form">
             <div class="form-group">
                 <label>City *</label>
-                <input type="text" id="city" name="city" required placeholder="e.g., Casablanca">
+                <select id="city" name="city" required>
+                    <option value="" disabled selected>Select a city</option>
+                </select>
             </div>
             
             <div class="form-group">
                 <label>Neighborhood *</label>
-                <input type="text" id="neighborhood" name="neighborhood" required placeholder="e.g., Maarif">
+                <select id="neighborhood" name="neighborhood" required disabled>
+                    <option value="" disabled selected>Select a city first</option>
+                </select>
             </div>
             
             <div class="form-row">
@@ -162,6 +166,47 @@ function property_estimator_shortcode() {
         </div>
         
         <script>
+        const API_BASE = 'YOUR_API_URL/api';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch(`${API_BASE}/cities`);
+                const data = await response.json();
+                if (data.success && data.cities) {
+                    const citySelect = document.getElementById('city');
+                    data.cities.sort().forEach(city => {
+                        citySelect.add(new Option(city, city));
+                    });
+                }
+            } catch (err) { console.error('Error fetching cities', err); }
+        });
+        
+        document.getElementById('city').addEventListener('change', async (e) => {
+            const city = e.target.value;
+            const ns = document.getElementById('neighborhood');
+            if (!city) return;
+            
+            ns.disabled = true;
+            ns.innerHTML = '<option value="" disabled selected>Loading...</option>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/neighborhoods?city=${encodeURIComponent(city)}`);
+                const data = await response.json();
+                
+                ns.innerHTML = '<option value="" disabled selected>Select a neighborhood</option>';
+                if (data.neighborhoods && data.neighborhoods.length) {
+                    data.neighborhoods.sort().forEach(n => {
+                        ns.add(new Option(n, n));
+                    });
+                    ns.disabled = false;
+                } else {
+                    ns.innerHTML = '<option value="" disabled selected>No data found</option>';
+                }
+            } catch (err) {
+                ns.innerHTML = '<option value="" disabled selected>Error loading</option>';
+            }
+        });
+
         document.getElementById('propertyForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             

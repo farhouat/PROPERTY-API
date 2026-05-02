@@ -38,10 +38,31 @@
     "growth_factor": 1.03,
     "neighborhoods": {
       "Centre Ville": { "base_price_m2": 12000, "standing": "moyen_haut" },
-      "Sablettes": { "base_price_m2": 13000, "standing": "haut" },
-      "Mansouria": { "base_price_m2": 12500, "standing": "moyen_haut" },
-      "Wafa": { "base_price_m2": 11000, "standing": "moyen" },
-      "Al Alia": { "base_price_m2": 10000, "standing": "moyen" }
+      "Quartier du Parc": { "base_price_m2": 13500, "standing": "haut" },
+      "Quartier du Soleil": { "base_price_m2": 12500, "standing": "moyen_haut" },
+      "La Colline": { "base_price_m2": 10500, "standing": "moyen" },
+
+      "Rachidia 1": { "base_price_m2": 10000, "standing": "moyen" },
+      "Rachidia 2": { "base_price_m2": 9800, "standing": "moyen" },
+      "Rachidia 3": { "base_price_m2": 9500, "standing": "moyen" },
+
+      "Hay Saada": { "base_price_m2": 9000, "standing": "moyen_bas" },
+      "Hay Al Falah": { "base_price_m2": 9500, "standing": "moyen" },
+      "Hassania 1": { "base_price_m2": 8500, "standing": "moyen_bas" },
+      "Hassania 2": { "base_price_m2": 8300, "standing": "moyen_bas" },
+
+      "La Siesta": { "base_price_m2": 15000, "standing": "haut" },
+      "Sablettes": { "base_price_m2": 15500, "standing": "haut" },
+      "Al Alia": { "base_price_m2": 13000, "standing": "moyen_haut" },
+
+      "Mansouria": { "base_price_m2": 14000, "standing": "haut" },
+
+      "Zenata Eco-City": { "base_price_m2": 14500, "standing": "haut" },
+      "Ain Harrouda": { "base_price_m2": 11000, "standing": "moyen" },
+      "Beni Yakhlef": { "base_price_m2": 8500, "standing": "moyen_bas" },
+
+      "Zone Industrielle": { "base_price_m2": 8000, "standing": "bas" },
+      "Oued El Maleh": { "base_price_m2": 9000, "standing": "moyen_bas" }
     }
   },
 
