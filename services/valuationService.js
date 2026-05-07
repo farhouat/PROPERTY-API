@@ -18,10 +18,12 @@ try {
 // -------------------------------
 const STANDING_FACTORS = {
     'economique': 0.85,
+    'moyen_bas': 0.80,
     'moyen': 1.00,
     'moyen_haut': 1.15,
     'haut': 1.30,
-    'luxe': 1.50
+    'luxe': 1.50,
+    'bas': 0.70
 };
 
 // -------------------------------
@@ -79,9 +81,6 @@ function unifiedEstimate(data) {
     if (surface <= 0) {
         return { error: "Surface area must be greater than 0" };
     }
-    if (surface > 1000) {
-        return { error: "Surface area seems too large. Please check your input" };
-    }
 
     // Find city (case-insensitive)
     const cityKey = Object.keys(moroccoData).find(key => 
@@ -122,7 +121,7 @@ function unifiedEstimate(data) {
     // Apply standing adjustment if not provided
     const standingFactor = standing ? 
         (STANDING_FACTORS[standing] || 1.0) : 
-        STANDING_FACTORS[standingLevel];
+        (STANDING_FACTORS[standingLevel] || 1.0);
 
     // Calculate base price
     let pricePerM2 = basePriceM2 * standingFactor;
@@ -157,13 +156,13 @@ function unifiedEstimate(data) {
         condition: condition,
         floor: floor,
         standing: standingLevel,
-        pricePerM2: Math.round(pricePerM2),
-        estimatedPrice: Math.round(totalPrice),
+        pricePerM2: Math.round(pricePerM2) || 0,
+        estimatedPrice: Math.round(totalPrice) || 0,
         estimatedPriceRange: {
-            min: Math.round(totalPrice * 0.9),
-            max: Math.round(totalPrice * 1.1)
+            min: Math.round(totalPrice * 0.9) || 0,
+            max: Math.round(totalPrice * 1.1) || 0
         },
-        estimatedFuturePrice: Math.round(estimatedFuturePrice),
+        estimatedFuturePrice: Math.round(estimatedFuturePrice) || 0,
         currency: 'MAD',
         disclaimer: 'This is an estimated value. Actual prices may vary based on market conditions, exact location, and property specifics.'
     };

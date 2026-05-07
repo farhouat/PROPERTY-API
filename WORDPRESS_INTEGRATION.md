@@ -122,7 +122,7 @@ function property_estimator_shortcode() {
             <div class="form-row">
                 <div class="form-group">
                     <label>Surface Area (m²) *</label>
-                    <input type="number" id="surface" name="surface" min="10" max="1000" required>
+                    <input type="number" id="surface" name="surface" min="10" required>
                 </div>
                 
                 <div class="form-group">
@@ -210,10 +210,11 @@ function property_estimator_shortcode() {
         document.getElementById('propertyForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            const surfaceRaw = document.getElementById('surface').value.replace(/,/g, '');
             const formData = {
                 city: document.getElementById('city').value,
                 neighborhood: document.getElementById('neighborhood').value,
-                surface: parseInt(document.getElementById('surface').value),
+                surface: parseFloat(surfaceRaw) || 0,
                 type: document.getElementById('type').value,
                 condition: document.getElementById('condition').value,
                 floor: parseInt(document.getElementById('floor').value) || 1

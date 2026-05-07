@@ -97,3 +97,18 @@ curl -s -X POST $BASE_URL/api/estimate \
 echo -e "\n"
 
 echo "✅ All tests completed!"
+
+# Test 9: Large surface area (> 1000)
+echo "🏰 Test 9: Large Surface (1500 Sq M)"
+echo "-----------------------------------"
+curl -s -X POST $BASE_URL/api/estimate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "city": "Casablanca",
+    "neighborhood": "Anfa",
+    "surface": 1500,
+    "type": "Villa",
+    "condition": "Excellent"
+  }' | python3 -m json.tool 2>/dev/null || curl -s -X POST $BASE_URL/api/estimate -H "Content-Type: application/json" -d '{"city":"Casablanca","neighborhood":"Anfa","surface":1500,"type":"Villa","condition":"Excellent"}'
+echo -e "\n"
+
